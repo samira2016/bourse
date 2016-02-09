@@ -1,0 +1,90 @@
+/* 
+    Document   : myCss
+    Created on : 25 janv. 2016, 16:51:02
+    Author     : ATTAL
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+p{
+    color: #023558;
+    font-family: "Lato",sans-serif;
+     font-size: 16px;
+}
+.div_header{
+
+    height: 70px;
+
+    background: #023558 none repeat scroll 0% 0%;
+}
+
+nav li{
+
+
+    font-size: 16px;
+
+
+    width: auto;
+    list-style: outside none none !important;
+
+    padding: 0;
+    margin-left:10px;
+    margin-right:10px;
+    display: inline-block;
+
+    height: 70px;
+
+    text-align: center;
+
+}
+nav li a{
+
+    font-family: "Lato",sans-serif;
+    color: white !important;
+    text-decoration: none;
+    top:15px;
+    position:relative;
+    text-align: center;
+
+}
+ a:hover{
+    text-decoration: none;
+}
+a:active{
+    text-decoration: none;
+}
+
+nav li:hover{
+    transition-property: background-color,color;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-out;
+
+    background: #45a1e0 none repeat scroll 0% 0%;
+
+}
+
+/*nav ul:hover{
+    transition-property: background-color,color;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-out;
+
+    background: #45a1e0 none repeat scroll 0% 0%;
+
+}*/
+.left{
+
+    float:left;
+
+}
+.right{
+    float:right;
+}
+.center{
+    margin-left:25%;
+}
