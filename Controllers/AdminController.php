@@ -271,7 +271,7 @@ class AdminController extends Controller {
     public function ajouterSociete() {
 
         echo __FUNCTION__;
-        var_dump("dans ajouter societe");
+      
         die();
     }
 

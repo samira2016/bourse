@@ -19,9 +19,7 @@ class App {
 
     public static function load() {
         session_start();
-      
-
-//unset($_SESSION['success'],$_SESSION['error'],$_SESSION['post'],$_SESSION['tokenSession'],$_SESSION['token']);
+        
 
         //generer un token pour chaque session contreles failles CSRF
         if (!isset($_SESSION['tokenSession'])) {
@@ -48,7 +46,7 @@ class App {
             //*/
         }
         //session.cookie_lifetime=0;
-        // var_dump(__DIR__);
+        
         require ROOT . '/Outils/Autoloader.php';
         Autoloader::register();
 

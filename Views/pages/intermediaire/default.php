@@ -1,3 +1,15 @@
+ <?php
+use Bourse\Controllers\Controller;
+
+ 
+ require_once '../../../index_header.php';
+ 
+  $controller = new Controller();
+ //donne ledroit d'access a l'espace admin
+$controller->allow("intermediaire");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,6 +20,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../css/myCss.css">
 <?php// $titre="hell"?>
     <title></title>
     
@@ -20,6 +33,10 @@
 
     <!-- Custom styles for this template -->
     <link href="jumbotron.css" rel="stylesheet">
+    
+    
+    
+    
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -34,32 +51,12 @@
 
   <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">BOURSE @NET</a>
-        </div>
-        
-      </div>
-    </nav>
+    
+      
+         <?=$menu?>
+     
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-       
-        <!---menu---------------!-->
-       
-        <h5><a href="index.php?p=deconnexion">Se deconnecter</a></h5>
-        
-      </div>
-    </div>
-
+ 
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">

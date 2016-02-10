@@ -31,6 +31,7 @@ class AppController {
     protected function renderMenu($espace = null) {//require menu
         ob_start();
         if ($espace) {
+
             require ROOT . '/views/pages/' . $espace . '/menu.php';
         } else {
             require ROOT . '/views/pages/menu.php';
@@ -53,10 +54,12 @@ class AppController {
          */
         //------1
         $menu = $this->renderMenu($espace);
+
         extract($data);
-        ob_start();
+        //ob_start();
         //------------2
         if ($espace) {
+
             require ROOT . '/views/pages/' . $espace . '/' . $view . '.php';
         } else {
             require ROOT . '/views/pages/' . $view . '.php';
@@ -116,8 +119,8 @@ class AppController {
      * */
     public function islogged($level) {
 
-
         if (isset($_SESSION['user']) && isset($_SESSION['level'])) {
+
 
             /*
              * todoo 
@@ -136,7 +139,9 @@ class AppController {
      * 
      */
     public function allow($level) {
+
         if ($this->islogged($level)) {
+
             return true;
         } else {
             $this->forbidden();
@@ -145,7 +150,7 @@ class AppController {
 
     public function deconnexion() {
 
-        session_regenerate_id();
+        //session_regenerate_id();
 
         $_SESSION[] = array();
         session_destroy();
@@ -190,9 +195,19 @@ class AppController {
     public function testCookieAuth() {
 
 
+        //die("ici");
         if (!isset($_COOKIE['auth'])) {
+            // $this->render('connexion');
+            //test si SESSION['auth']
+            if (isset($_SESSION['user']) && isset($_SESSION['level'])) {
 
-            $this->render('connexion');
+
+                $redirect = $_SESSION['level'] . "/index";
+
+                $this->redirect($redirect);
+            } else {
+                $this->render('connexion');
+            }
         } else {
 
 
@@ -204,7 +219,6 @@ class AppController {
             $crypt = $auth[1]; //login+nom+$_server[remote+addr]
             //requete pour treouve l'utilisateur qui correspend a id
 
-            ;
 
             $id = intval($id);
 
@@ -217,12 +231,15 @@ class AppController {
                 if (sha1($cle) === $crypt) {
 
                     $_SESSION["user"] = serialize($res);
-                    if ($res->niveauAccess() === '1') {//espace personnel utilisateur
-                        $_SESSION["level"] = 'user';
-                        $this->redirect("espace/index");
+                    if ($res->niveauAccess() === '1') {//espace personnel intermediaire
+                        $_SESSION["level"] = 'intermediaire';
+                        $this->redirect("intermediaire/index");
                     } else if ($res->niveauAccess() === '9') {//redirection vers l'espace administrateur
                         $_SESSION["level"] = 'admin';
                         $this->redirect("admin/index");
+                    } else if ($res->niveauAccess() === '2') {//redirection vers l'espace representant
+                        $_SESSION["level"] = 'representant';
+                        $this->redirect("representant/index");
                     }
                 } else {
                     $this->render("connexion");
@@ -238,6 +255,7 @@ class AppController {
     //-----acces vers l'espace personel par le lien home-------------------------------------------------
 
     public function accessMyspace() {
+
         $this->testCookieAuth();
     }
 
@@ -370,8 +388,6 @@ class AppController {
         $this->render("changePassword");
     }
 
-    
-
     /**
      * traitement du formulaire de reinisialisation de mot de passe
      */
@@ -401,8 +417,8 @@ class AppController {
                 $errors['newpass'] = 'nouveau password est  obligatoire!';
             }
             $id = $_POST['id'];
-           $token = $_POST['token'];
-           
+            $token = $_POST['token'];
+
             if (sizeof($errors) !== 0) {
                 $data['errors'] = $errors;
                 $data['post'] = $_POST;
@@ -413,20 +429,19 @@ class AppController {
 
                 if ($res) {
 
-                        $req = "UPDATE utilisateur SET password=? ,token=null where id=" . $id;
-                        $password = password_hash($newpass, PASSWORD_BCRYPT);
-                        $resup = $this->TableUtilisateur->updateTableUser($req, [$password]);
+                    $req = "UPDATE utilisateur SET password=? ,token=null where id=" . $id;
+                    $password = password_hash($newpass, PASSWORD_BCRYPT);
+                    $resup = $this->TableUtilisateur->updateTableUser($req, [$password]);
 
-                        
-                        $data['success'] = "Mot de passe reinisialise";
-                        unset($_SESSION['post']);
-                        unset($data['post']);
 
-                        $this->redirect("index.php?p=changePassword&id=" . $id . "&token=" . $token, $data);
-                    } else {
-                        $this->redirect("index.php?p=changePassword");
-                    }
-                
+                    $data['success'] = "Mot de passe reinisialise";
+                    unset($_SESSION['post']);
+                    unset($data['post']);
+
+                    $this->redirect("index.php?p=changePassword&id=" . $id . "&token=" . $token, $data);
+                } else {
+                    $this->redirect("index.php?p=changePassword");
+                }
             }
             $this->redirect("index.php?p=changePassword&id=" . $id . "&token=" . $token, $data);
         } else {

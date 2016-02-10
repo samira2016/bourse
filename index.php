@@ -17,9 +17,9 @@ $controller = new Controller();
 //s$titre="home";
 if ($page === "home") {
     $titre = "Page";
-    // var_dump($titre);
+   
     $controller->index();
-    //require ROOT.'/views/pages/home.php';
+ 
 }
 
 //affichage de la page d'inscription

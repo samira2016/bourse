@@ -151,14 +151,14 @@ class Controller extends AppController {
                         unset($data);
                         $_SESSION["user"] = serialize($res);
                         if ($res->niveauAccess() === '1') {//espace personnel utilisateur
-                            $_SESSION["level"] = 'user';
-                            $this->redirect("espace/index");
+                            $_SESSION["level"] = 'intermediaire';
+                            $this->redirect("intermediaire/index");
                         } else if ($res->niveauAccess() === '9') {//redirection vers l'espace administrateur
                             $_SESSION["level"] = 'admin';
                             $this->redirect("admin/index");
                         } else if ($res->niveauAccess() === '2') {//redirection vers l'espace representant
-                            $_SESSION["level"] = 'repres';
-                            $this->redirect("repres/index");
+                            $_SESSION["level"] = 'representant';
+                            $this->redirect("representant/index");
                         }
 
                         //-------------traitement pour le bouton remember me------->>>>>>>>>>>><
@@ -249,8 +249,7 @@ class Controller extends AppController {
             }
             //------------message
             if (!empty($_POST['message'])) {
-                //var_dump($_POST['message']);
-                // die("message");
+
 
                 if (!Validator::validMessage($_POST['message'])) {
                     $errors['message'] = "message  invalide";
@@ -337,8 +336,8 @@ class Controller extends AppController {
                             }
                             //test de reinisialisation a supprimé------
                             //*
-                            $id=$res->id();
-                           // header("location:index.php?p=changePassword&id=14785&token=" . $token);
+                            $id = $res->id();
+                            // header("location:index.php?p=changePassword&id=14785&token=" . $token);
                             header("location:index.php?p=changePassword&id=" . $res->id() . "&token=" . $token);
 
                             exit();
@@ -360,7 +359,7 @@ class Controller extends AppController {
             $this->redirect();
         }
     }
-    
+
 }
 
 ?>
